@@ -13,10 +13,17 @@
       #messages li:nth-child(odd) { background: #eee; }
       #countdown{position:absolute;top:40%;left:50%;font-size:100px;display:none;}
     </style>
+    <link href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet'>
   </head>
   <body>
-
-    <ul id="messages"></ul>
+    <div class="row">
+      <div class="col-sm-6">
+        <ul id="messages"></ul>
+      </div>
+      <div class="col-sm-6">
+        <div id="wordcloud"></div>
+      </div>
+    </div>
     <form id = "inputForm" action="">
       <input id="submit" autocomplete="off" /><button>Send</button>
     </form>
@@ -53,8 +60,9 @@
     return false;
     });
     
-    socket.on('chat message', function(msg){
+    socket.on('chat message', function(msg, wordcloud){
     $('#messages').append($('<li>').text(msg));
+    $('#wordcloud').html(wordcloud);
     });
 
     socket.on('startCountdown', function(target){
