@@ -4,7 +4,7 @@ var io = require('socket.io')(http);
 
 var Canvas = require('canvas')
   , Image = Canvas.Image
-  , canvas = new Canvas(400, 400)
+  , canvas = new Canvas(500, 500)
   , ctx = canvas.getContext('2d');
 
 var words = {};
@@ -29,9 +29,9 @@ function addWord(word){
 }
 
 function drawWordCloud(msg){
-  ctx.clearRect(0,0,400,400);
+  ctx.clearRect(0,0,500,500);
   for(word in words){
-    var fontAddition = words[word] * 4;
+    var fontAddition = words[word] * 8;
     drawWord(word, fontAddition);
   }
 }
