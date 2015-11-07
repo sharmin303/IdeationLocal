@@ -36,6 +36,16 @@ function drawWordCloud(msg){
   }
 }
 
+voteCount = 0;
+
+function decideVote(target){
+  if(voteCount >= Math.ceil(io.engine.clientsCount/2) ) {
+    io.emit('success',target);
+    console.log("yay");
+  }
+  voteCount = 0;
+}
+
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
@@ -54,6 +64,10 @@ io.on('connection', function(socket){
   });
     socket.on('countdown', function(target){
     io.emit('startCountdown', target);
+    setTimeout(function() {decideVote(target)}, 6000);
+  });
+    socket.on('vote', function(){
+    voteCount++;
   });
 });
 

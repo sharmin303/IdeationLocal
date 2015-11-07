@@ -12,6 +12,7 @@
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
       #countdown{position:absolute;top:40%;left:50%;font-size:100px;display:none;}
+      #vote{position:absolute;top:40%;left:71%;font-size:50px;display:none; }
     </style>
     <link href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet'>
   </head>
@@ -36,16 +37,18 @@
     highlighted = $("li:contains('" + toHighLight + "')");
     highlighted.css({ 'color': 'red', 'font-size': '300%' });
     $("#countdown").css('display', 'inline-block');
-    var timer = setInterval(decrement, 1000);
-    setTimeout(function(){
+    $("#vote").css('display', 'inline-block');
+    timer = setInterval(decrement, 1000);
+    setTimeout(endVote, 6000);
+    }
+
+    function endVote() {
       clearInterval(timer);
       highlighted.css({ 'color': 'black', 'font-size': '100%' });
       $("#countdown").html("5");
       $("#countdown").css('display', 'none');
-     }, 6000);
+      $("#vote").css('display', 'none');
     }
-
-    
 
     function decrement() {
       var countdown = $("#countdown");
@@ -68,15 +71,25 @@
     socket.on('startCountdown', function(target){
     countdown(target);
     });
+
+    socket.on('success', function(target){
+    console.log(target);
+    });
     
     $("#messages").on("click", "li", function(event){
-    
-   // $(event.target).css({ 'color': 'red', 'font-size': '300%' });
     socket.emit('countdown',$(event.target).text())
+    });
+
+    $(document).ready(function() {
+      $("#vote").click(function(){
+        socket.emit('vote');
+        $("#vote").css('display', 'none');
+      }); 
     });
     </script>
     <div id = "countdown"> 
         5
     </div>
+    <button id="vote" type="button"> Yes</button>
   </body>
 </html>
