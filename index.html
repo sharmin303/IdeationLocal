@@ -12,7 +12,7 @@
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
       #countdown{position:absolute;top:40%;left:50%;font-size:100px;display:none;}
-      #vote{position:absolute;top:35%;left:63%;font-size:25px;display:none; }
+      #vote{position:absolute;top:45%;left:63%;font-size:25px;display:none; }
     </style>
     <link href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet'>
   </head>
@@ -21,7 +21,7 @@
       <div class="row">
         <div class="col-sm-6">
           <h4 id="title">What is the most popular tech buzz word?</h4>
-          <div class="progress">
+          <div class="progress progress-striped">
             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
               <span class="sr-only">0% Complete</span>
             </div>
@@ -84,10 +84,18 @@
     return false;
     });
     
-    socket.on('chat message', function(msg, wordcloud){
+    socket.on('chat message', function(msg, wordcloud, messageNum){
       $('#messages').append($('<li class="list-group-item-info">').text(msg));
       $('#wordcloud').html(wordcloud);
+      if(messageNum == 1){
+        setInterval(startProgressBar, 10);
+      }
     });
+
+    function startProgressBar(){
+      console.log("running");
+      $(".progress-bar").css("width", "+=10");
+    };
 
     socket.on('startCountdown', function(target){
     countdown(target);
@@ -113,6 +121,6 @@
     <div id = "countdown"> 
         5
     </div>
-    <button id="vote" class="btn btn-info" type="button"></button>
+    <button id="vote" class="btn btn-info" type="button">Vote Yes</button>
   </body>
 </html>

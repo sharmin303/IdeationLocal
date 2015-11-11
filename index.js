@@ -8,6 +8,7 @@ var Canvas = require('canvas')
   , ctx = canvas.getContext('2d');
 
 var words = {};
+var messageNum = 0;
 
 function drawWord(word, fontAddition) {
   colors = ['blue', 'red', 'green', 'orange', 'purple'];
@@ -55,6 +56,7 @@ function decideVote(target){
 
 function startNewRound(){
   words = {};
+  messageNum = 0;
 }
 
 
@@ -65,10 +67,11 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
     socket.on('chat message', function(msg){
+    messageNum++;
     addWord(msg);
     drawWordCloud(msg);
     wordcloud = '<img src="' + canvas.toDataURL() + '" />'
-    io.emit('chat message', msg, wordcloud);
+    io.emit('chat message', msg, wordcloud, messageNum);
   });
     socket.on('countdown', function(target){
     io.emit('startCountdown', target);
