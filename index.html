@@ -17,17 +17,28 @@
     <link href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet'>
   </head>
   <body>
-    <div class="row">
-      <div class="col-sm-4">
-        <ul id="messages"></ul>
+    <div class="container">
+      <h4 id="title">What is the most popular tech buzz word?</h4>
+      <div class="row">
+        <div class="col-sm-9">
+            <div id="wordcloud"></div>
+        </div>
+        <div class="col-sm-3">
+          <div class="panel panel-info">
+            <div class="panel-heading">Activity Feed</div>
+            <div class="panel-body">
+              <ul class="list-group" id="messages"></ul>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-sm-8">
-        <div id="wordcloud"></div>
+      <div class="row">
+        
       </div>
+      <form id = "inputForm" action="">
+        <input id="submit" autocomplete="off" /><button>Send</button>
+      </form>
     </div>
-    <form id = "inputForm" action="">
-      <input id="submit" autocomplete="off" /><button>Send</button>
-    </form>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
@@ -35,7 +46,7 @@
     
     function countdown(toHighLight){
     highlighted = $("li:contains('" + toHighLight + "')");
-    highlighted.css({ 'color': 'red', 'font-size': '300%' });
+    highlighted.css({ 'color': 'red', 'font-size': '200%' });
     $("#countdown").css('display', 'inline-block');
     $("#vote").css('display', 'inline-block');
     timer = setInterval(decrement, 1000);
@@ -64,8 +75,8 @@
     });
     
     socket.on('chat message', function(msg, wordcloud){
-    $('#messages').append($('<li>').text(msg));
-    $('#wordcloud').html(wordcloud);
+      $('#messages').append($('<li class="list-group-item-info">').text(msg));
+      $('#wordcloud').html(wordcloud);
     });
 
     socket.on('startCountdown', function(target){
@@ -73,11 +84,12 @@
     });
 
     socket.on('success', function(target){
-    console.log(target);
+      $('#wordcloud').html(wordcloud);
+      console.log(target);
     });
     
     $("#messages").on("click", "li", function(event){
-    socket.emit('countdown',$(event.target).text())
+      socket.emit('countdown',$(event.target).text())
     });
 
     $(document).ready(function() {
@@ -90,6 +102,6 @@
     <div id = "countdown"> 
         5
     </div>
-    <button id="vote" type="button"> Yes</button>
+    <button id="vote" class="btn btn-info" type="button"><p>Yes</p></button>
   </body>
 </html>
