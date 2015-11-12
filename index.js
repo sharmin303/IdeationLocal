@@ -8,12 +8,17 @@ var Canvas = require('canvas')
   , ctx = canvas.getContext('2d');
 
 var words = {};
+var messageNum = 0;
 
 function drawWord(word, fontAddition) {
   colors = ['blue', 'red', 'green', 'orange', 'purple'];
   ctx.fillStyle = colors[Math.floor((Math.random() * 5))];
   fontSize = (15 + fontAddition).toString();
   ctx.font = fontSize + "px Georgia";
+  ctx.globalAlpha = words[word] * 0.3;
+  if((words[word]*0.3) > 1){
+    ctx.globalAlpha = 1;
+  }
   x = Math.floor(Math.random() * 300 + 50)
   y = Math.floor(Math.random() * 300 + 50)
   ctx.fillText(word, x, y);
@@ -40,10 +45,18 @@ voteCount = 0;
 
 function decideVote(target){
   if(voteCount >= Math.ceil(io.engine.clientsCount/2) ) {
-    io.emit('success',target);
+    startNewRound();
+    drawWordCloud("msg");
+    wordcloud = '<img src="' + canvas.toDataURL() + '" />'
+    io.emit('success',target, wordcloud);
     console.log("yay");
   }
   voteCount = 0;
+}
+
+function startNewRound(){
+  words = {};
+  messageNum = 0;
 }
 
 
@@ -51,16 +64,14 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/canvas', function(req, res){
-  
-});
 
 io.on('connection', function(socket){
     socket.on('chat message', function(msg){
+    messageNum++;
     addWord(msg);
     drawWordCloud(msg);
     wordcloud = '<img src="' + canvas.toDataURL() + '" />'
-    io.emit('chat message', msg, wordcloud);
+    io.emit('chat message', msg, wordcloud, messageNum);
   });
     socket.on('countdown', function(target){
     io.emit('startCountdown', target);
