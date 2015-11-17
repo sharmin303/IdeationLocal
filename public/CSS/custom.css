@@ -1,0 +1,96 @@
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+
+
+body
+{ 
+font-family: 'Varela Round', 
+sans-serif!important; 
+}
+ 
+#title
+{
+text-align: center;
+margin-left: 25%;
+}
+
+.container form {
+position:fixed; 
+bottom: 5px; 
+width: 80%;
+}
+
+.form-control{
+      width: 50%!important;
+}
+
+form #inputform{
+      margin-left: 40%;
+}
+
+#messages 
+{
+list-style-type: none; 
+margin: 0; 
+padding: 0; 
+}
+      
+#messages li 
+{
+padding: 5px 10px; 
+}
+
+#messages li:nth-child(odd) 
+{ 
+background: #eee; 
+}
+
+#countdown{
+position:absolute;
+top:40%;
+left:50%;
+font-size:100px;
+display:none;
+}
+
+#vote
+{
+position:absolute;
+top:45%;
+left:63%;
+font-size:25px;
+display:none; 
+}
+
+#ideators
+{
+color:#f0ad4e; 
+text-align: right; 
+font-size: 15px;
+margin-top: 2%;
+}
+
+#newPromptinstruction{
+font-size: 10px; 
+text-align: right; 
+padding-bottom: 1%;}
+
+#activityFeed{
+text-align: center;
+}
+
+
+#logo img{
+      width: 80%;
+      margin-top: 3%;
+      position: relative;
+      left: 15%;
+}
+
+#canvas{
+      border: 2px black;
+      width: 450px;
+      height: 250px;
+      background-color: yellow;
+      position: fixed;
+      bottom: 5px;
+}
