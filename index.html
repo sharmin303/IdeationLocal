@@ -5,29 +5,50 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 92%; }
       form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
       form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
       #countdown{position:absolute;top:40%;left:50%;font-size:100px;display:none;}
-      #vote{position:absolute;top:40%;left:71%;font-size:50px;display:none; }
+      #vote{position:absolute;top:45%;left:63%;font-size:25px;display:none; }
     </style>
     <link href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet'>
   </head>
   <body>
-    <div class="row">
-      <div class="col-sm-4">
-        <ul id="messages"></ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <h4 id="title">What is the most popular tech buzz word?</h4>
+          <div class="progress progress-striped">
+            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              <span class="sr-only">0% Complete</span>
+            </div>
+          </div>
+        </div>
+          
       </div>
-      <div class="col-sm-8">
-        <div id="wordcloud"></div>
+
+      <div class="row">
+        <div class="col-sm-9">
+            <div id="wordcloud"></div>
+        </div>
+        <div class="col-sm-3">
+          <div class="panel panel-info">
+            <div class="panel-heading">Activity Feed</div>
+            <div class="panel-body">
+              <ul class="list-group" id="messages"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <form id = "inputForm" action="">
+            <input id="submit" autocomplete="off" /><button class="btn btn-info">Send</button>
+          </form>
       </div>
     </div>
-    <form id = "inputForm" action="">
-      <input id="submit" autocomplete="off" /><button>Send</button>
-    </form>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
@@ -35,7 +56,7 @@
     
     function countdown(toHighLight){
     highlighted = $("li:contains('" + toHighLight + "')");
-    highlighted.css({ 'color': 'red', 'font-size': '300%' });
+    highlighted.css({ 'color': 'red', 'font-size': '200%' });
     $("#countdown").css('display', 'inline-block');
     $("#vote").css('display', 'inline-block');
     timer = setInterval(decrement, 1000);
@@ -63,21 +84,31 @@
     return false;
     });
     
-    socket.on('chat message', function(msg, wordcloud){
-    $('#messages').append($('<li>').text(msg));
-    $('#wordcloud').html(wordcloud);
+    socket.on('chat message', function(msg, wordcloud, messageNum){
+      $('#messages').append($('<li class="list-group-item-info">').text(msg));
+      $('#wordcloud').html(wordcloud);
+      if(messageNum == 1){
+        setInterval(startProgressBar, 10);
+      }
     });
+
+    function startProgressBar(){
+      console.log("running");
+      $(".progress-bar").css("width", "+=10");
+    };
 
     socket.on('startCountdown', function(target){
     countdown(target);
     });
 
     socket.on('success', function(target){
-    console.log(target);
+      $('#wordcloud').html(wordcloud);
+      $('#messages').html("");
+      console.log(target);
     });
     
     $("#messages").on("click", "li", function(event){
-    socket.emit('countdown',$(event.target).text())
+      socket.emit('countdown',$(event.target).text())
     });
 
     $(document).ready(function() {
@@ -90,6 +121,6 @@
     <div id = "countdown"> 
         5
     </div>
-    <button id="vote" type="button"> Yes</button>
+    <button id="vote" class="btn btn-info" type="button">Vote Yes</button>
   </body>
 </html>
