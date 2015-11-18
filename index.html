@@ -126,12 +126,11 @@
       $('#messages').append($('<li class="list-group-item-warning">').text(msg));
       $('#wordcloud').html(wordcloud);
       if(messageNum == 1){
-        setInterval(startProgressBar, 10);
+        progressBarTimer = setInterval(startProgressBar, 5);
       }
     });
 
     function startProgressBar(){
-      console.log("running");
       $(".progress-bar").css("width", "+=10");
     };
 
@@ -142,6 +141,8 @@
     socket.on('success', function(target){
       $('#wordcloud').html(wordcloud);
       $('#messages').html("");
+      clearInterval(progressBarTimer);
+      $('.progress-bar').css("width", "0");
       console.log(target);
     });
     

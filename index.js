@@ -12,8 +12,6 @@ var messageNum = 0;
 
 function drawWord(word, fontAddition, x) {
   colors = ['blue', 'red', 'green', 'orange', 'purple'];
-  console.log(words.length%5);
-  console.log(words.length);
   ctx.fillStyle = colors[x%5]
   fontSize = (15 + fontAddition).toString();
   ctx.font = fontSize + "px Georgia";
