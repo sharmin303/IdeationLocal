@@ -43,6 +43,9 @@
               </div>
             </div>
           </div>
+          <div class ="col-lg-6">
+            <ul id="voted-words"></ul>
+          </div>
         </div> <!--End of Progress Bar-->
 
       <div class = "row">
@@ -143,6 +146,7 @@
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
+      $('ul#voted-words').append('<li>' + target + '</li>');
       console.log(target);
     });
     
