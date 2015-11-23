@@ -13,9 +13,9 @@ var Canvas = require('canvas')
 var words = {};
 var messageNum = 0;
 
-function drawWord(word, fontAddition) {
+function drawWord(word, fontAddition, x) {
   colors = ['blue', 'red', 'green', 'orange', 'purple'];
-  ctx.fillStyle = colors[Math.floor((Math.random() * 5))];
+  ctx.fillStyle = colors[x%5]
   fontSize = (15 + fontAddition).toString();
   ctx.font = fontSize + "px Georgia";
   ctx.globalAlpha = words[word] * 0.3;
@@ -38,9 +38,11 @@ function addWord(word){
 
 function drawWordCloud(msg){
   ctx.clearRect(0,0,500,500);
+  var x = 0;
   for(word in words){
     var fontAddition = words[word] * 8;
-    drawWord(word, fontAddition);
+    drawWord(word, fontAddition, x);
+    x += 1;
   }
 }
 

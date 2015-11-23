@@ -2,11 +2,6 @@
 <html>
   <head>
     <title>Ideation</title>
-
-    <style>
-
-
-    </style>
     <link href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
     <link rel='stylesheet' type ='text.css' href='CSS/custom.css'>
@@ -55,14 +50,18 @@
             <div class="panel-heading" id="activityFeed">Idea Log</div>
             <div class="panel-body" id="panelBodyHeight" >
               <ul class="list-group" id="messages" > </ul>
-
-            </div>
+            </div>       
           </div>
         </div>
 
-        <div class="col-sm-10">
+        <div class="col-sm-8">
             <div id="wordcloud"></div>
         </div>
+
+        <div class ="col-lg-2">
+            <ul id="voted-words"></ul>
+        </div>
+
       </div> <!--End of Right Activity Feed-->
 
 
@@ -133,12 +132,11 @@
       $('#messages').append($('<li class="list-group-item-warning">').text(msg));
       $('#wordcloud').html(wordcloud);
       if(messageNum == 1){
-        setInterval(startProgressBar, 10);
+        progressBarTimer = setInterval(startProgressBar, 5);
       }
     });
 
     function startProgressBar(){
-      console.log("running");
       $(".progress-bar").css("width", "+=10");
     };
 
@@ -149,6 +147,11 @@
     socket.on('success', function(target){
       $('#wordcloud').html(wordcloud);
       $('#messages').html("");
+      clearInterval(progressBarTimer);
+      $('.progress-bar').css("width", "0");
+      var new_item = $('<div class="circle">' + target + '</div>').hide();
+      $('ul#voted-words').append(new_item);
+      new_item.show('slow');
       console.log(target);
     });
     
