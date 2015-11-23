@@ -48,13 +48,14 @@
         <div class ="col-sm-9"></div>
       </div>
 
-      <div class="row"> <!--Right Activity Feed-->
+      <div class="row full-height"> <!--Right Activity Feed-->
 
-        <div class="col-sm-2">
-          <div class="panel panel-warning">
+        <div class="col-sm-2 full-height">
+          <div class="panel panel-warning" id="panelHeight">
             <div class="panel-heading" id="activityFeed">Idea Log</div>
-            <div class="panel-body">
-              <ul class="list-group" id="messages"></ul>
+            <div class="panel-body" id="panelBodyHeight" >
+              <ul class="list-group" id="messages" > </ul>
+
             </div>
           </div>
         </div>
@@ -66,16 +67,7 @@
 
 
       <div class ="row">
-
-        <div class = "col-lg-6">
-          <div id="canvas">
-          </div>
-           <!-- This place is fot the drawing canvas feature -->
-
-        </div>
-        
-        
-          <div class="col-lg-5">
+        <div class="col-lg-5">
           <form id="inputForm"> <!--Input text area -->
                 <input type="text" class="form-control" id="submit" autocomplete="off" placeholder='Type your idea here'>
           </form></div>
@@ -84,6 +76,16 @@
                 <button type="submit" class="btn btn-warning">Send</button>
                 </form> <!--End of Input text area -->
           </div>
+
+        <div class = "col-lg-6">
+          <div id="canvas">
+          </div> 
+           <!-- This place is fot the drawing canvas feature -->
+
+        </div>
+        
+        
+
         
       </div>
 

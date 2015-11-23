@@ -1,6 +1,8 @@
  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-
+html, body, .full-height {
+    height: 100%;
+}
 body
 { 
 font-family: 'Varela Round', 
@@ -79,6 +81,15 @@ text-align: center;
 }
 
 
+#panelBodyHeight{
+    height: 270px;
+    margin-bottom: 0;
+    overflow: auto;
+}
+
+#panelHeight{
+  overflow: hidden;
+}
 #logo img{
       width: 80%;
       margin-top: 3%;
@@ -90,7 +101,8 @@ text-align: center;
       border: 2px black;
       width: 450px;
       height: 250px;
-      background-color: yellow;
+      background-color: lightgrey;
       position: fixed;
       bottom: 5px;
+      margin-left: 8%;
 }
