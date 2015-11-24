@@ -9,6 +9,7 @@ var Canvas = require('canvas')
 
 var words = {};
 var messageNum = 0;
+var users = 0;
 
 function drawWord(word, fontAddition, x) {
   colors = ['blue', 'red', 'green', 'orange', 'purple'];
@@ -81,6 +82,14 @@ io.on('connection', function(socket){
   });
     socket.on('vote', function(){
     voteCount++;
+  });
+    socket.on('connect', function() { 
+    users++; 
+    io.emit('updateUsers', users);
+  });
+    socket.on('disconnect', function() { 
+    users--; 
+    io.emit('updateUsers', users);
   });
 });
 

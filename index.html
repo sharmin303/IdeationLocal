@@ -37,11 +37,14 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-sm-11">
           <h3 id="title">What is the most popular tech buzz word?</h3>
             <!--         <div class ="col-lg-2">
             <a href = "index.html" ><img src = "logo.png" alt = "logo" ></a>
           </div> -->
+        </div>
+        <div class="col-sm-1">
+          <div id="usersCount"></div>
         </div>
       </div>
 
@@ -149,6 +152,10 @@
 
     socket.on('startCountdown', function(target){
     countdown(target);
+    });
+
+    socket.on('updateUsers', function(users){
+      $('#usersCount').html('Users: ' + '<span class="badge">' + users + '</span>');
     });
 
     socket.on('success', function(target){
