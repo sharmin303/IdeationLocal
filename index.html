@@ -2,47 +2,19 @@
 <html>
   <head>
     <title>Ideation</title>
-
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font-family: 'Varela Round', sans-serif!important; }
-      #title {text-align: center;}
-      .container form {position:fixed; bottom: 5px; width: 100%;}
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-      #countdown{position:absolute;top:40%;left:50%;font-size:100px;display:none;}
-      #vote{position:absolute;top:45%;left:63%;font-size:25px;display:none; }
-      #ideators{color:#f0ad4e; text-align: right; font-size: 15px;}
-      #newPromptinstruction{font-size: 10px; text-align: right; padding-bottom: 1%;}
-      #activityFeed{text-align: center;}
-      .circle{
-        width:75px;
-        height:75px;
-        border-radius:50%;
-        font-size:10px;
-        color:#f0ad4e;
-        line-height:75px;
-        text-align:center;
-        background:#000
-      }
-    </style>
     <link href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
-    <link rel='stylesheet' type ='text.css' href='custom.css'>
+    <link rel='stylesheet' type ='text.css' href='CSS/custom.css'>
 
-      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
-      <script type="text/javascript" src="draw.js"></script>
   </head>
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-lg-12">
-          <h3 id="title">What is the most popular tech buzz word?</h3>
-            <!--         <div class ="col-lg-2">
-            <a href = "index.html" ><img src = "logo.png" alt = "logo" ></a>
-          </div> -->
-        </div>
+        <div class="col-lg-10">
+          <h3 id="title">What is the most popular tech buzz word?</h3></div>
+          <div class ="col-lg-2" id = "logo" >
+            <a href = "index.html" ><img src = "images/logo.png" alt = "logo" ></a>
+          </div>
       </div>
 
         <div class ="row"> <!--Progress Bar-->
@@ -53,49 +25,69 @@
               </div>
             </div>
           </div>
+
+          <div class = "col-lg-6"> 
+          <p id="ideators"> Ideators Active()</p> 
+          <p id="newPromptinstruction">*Press F3 for new prompt </p>
+          </div>
+
+
         </div> <!--End of Progress Bar-->
 
-      <div class = "row">
+<!--       <div class = "row">
         <div class ="col-sm-9"></div>
         <div class = "col-sm-3" id="ideators"> Ideators Active() </div>
-      </div>
+      </div> -->
 
       <div class = "row">
         <div class ="col-sm-9"></div>
-        <div class = "col-sm-3" id="newPromptinstruction"> *Press F3 for new prompt </div>
       </div>
 
-      <div class="row"> <!--Right Activity Feed-->
-        <div class="col-sm-7">
+      <div class="row full-height">
+
+        <div class="col-sm-2 full-height"> <!--Activity Feed -->
+          <div class="panel panel-warning panelHeight">
+            <div class="panel-heading" id="activityFeed">Idea Log</div>
+            <div class="panel-body" id="panelBodyHeight" >
+              <ul class="list-group" id="messages" > </ul>
+            </div>       
+          </div>
+        </div> <!--End of activity feed -->
+
+        <div class="col-sm-8">
             <div id="wordcloud"></div>
         </div>
-        <div class ="col-lg-2">
-            <ul id="voted-words"></ul>
-        </div>
-        <div class="col-sm-3">
-          <div class="panel panel-warning">
-            <div class="panel-heading" id="activityFeed">Idea Log</div>
-            <div class="panel-body">
-              <ul class="list-group" id="messages"></ul>
+
+        <div class ="col-lg-2 full-height">
+            <div class = "panelHeight" id="VotedBodyHeight">
+              <ul id="voted-words"></ul>
             </div>
-          </div>
         </div>
-      </div> <!--End of Right Activity Feed-->
+
+      </div> 
+
 
       <div class ="row">
-        <form id="inputForm"> <!--Input text area -->
-          <div class="col-lg-4">
+        <div class="col-lg-5">
+          <form id="inputForm"> <!--Input text area -->
                 <input type="text" class="form-control" id="submit" autocomplete="off" placeholder='Type your idea here'>
-          </div>
+          </form></div>
           <div class = "col-lg-1">
+          <form>
                 <button type="submit" class="btn btn-warning">Send</button>
+                </form> <!--End of Input text area -->
           </div>
-        </form> <!--End of Input text area -->
 
         <div class = "col-lg-6">
+          <div id="canvas">
+          </div> 
            <!-- This place is fot the drawing canvas feature -->
+
         </div>
+        
       </div>
+
+
     </div> <!--End of container-->
 
 
@@ -156,7 +148,7 @@
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
-      var new_item = $('<div class="circle">' + target + '</div>').hide();
+      var new_item = $('<div class="cloud" >' + target + '</div>').hide();
       $('ul#voted-words').append(new_item);
       new_item.show('slow');
       console.log(target);
