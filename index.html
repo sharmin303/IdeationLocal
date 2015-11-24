@@ -43,26 +43,28 @@
         <div class ="col-sm-9"></div>
       </div>
 
-      <div class="row full-height"> <!--Right Activity Feed-->
+      <div class="row full-height">
 
-        <div class="col-sm-2 full-height">
-          <div class="panel panel-warning" id="panelHeight">
+        <div class="col-sm-2 full-height"> <!--Activity Feed -->
+          <div class="panel panel-warning panelHeight">
             <div class="panel-heading" id="activityFeed">Idea Log</div>
             <div class="panel-body" id="panelBodyHeight" >
               <ul class="list-group" id="messages" > </ul>
             </div>       
           </div>
-        </div>
+        </div> <!--End of activity feed -->
 
         <div class="col-sm-8">
             <div id="wordcloud"></div>
         </div>
 
-        <div class ="col-lg-2">
-            <ul id="voted-words"></ul>
+        <div class ="col-lg-2 full-height">
+            <div class = "panelHeight" id="VotedBodyHeight">
+              <ul id="voted-words"></ul>
+            </div>
         </div>
 
-      </div> <!--End of Right Activity Feed-->
+      </div> 
 
 
       <div class ="row">
@@ -82,9 +84,6 @@
            <!-- This place is fot the drawing canvas feature -->
 
         </div>
-        
-        
-
         
       </div>
 
@@ -149,7 +148,7 @@
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
-      var new_item = $('<div class="circle">' + target + '</div>').hide();
+      var new_item = $('<div class="cloud" >' + target + '</div>').hide();
       $('ul#voted-words').append(new_item);
       new_item.show('slow');
       console.log(target);

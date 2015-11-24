@@ -87,7 +87,15 @@ text-align: center;
     overflow: auto;
 }
 
-#panelHeight{
+#VotedBodyHeight{
+    height: 300px;
+    margin-bottom: 0;
+    overflow: auto;
+    /*border: 1px solid black;*/
+
+}
+
+.panelHeight{
   overflow: hidden;
 }
 #logo img{
@@ -101,8 +109,51 @@ text-align: center;
       border: 2px black;
       width: 450px;
       height: 250px;
-      background-color: lightgrey;
+      /*background-color: lightgrey;*/
       position: fixed;
       bottom: 5px;
       margin-left: 8%;
+}
+
+
+
+ .cloud {
+  height: 3vw;
+  width: 8vw;
+  border-radius: 40vw;
+  border: 2px solid #f0ad4e;
+  border-top: transparent;
+  position: relative;
+  margin-top: 2vw;
+  text-align: center;
+  margin-left: 30%;
+}
+.cloud:before {
+  content: "";
+  position: absolute;
+  top: -0.95vw;
+  box-sizing: border-box;
+  height: 2vw;
+  width: 2vw;
+  left: 0.8vw;
+  border-radius: 50%;
+  border: 2px solid #f0ad4e;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  transform: rotate(39deg);
+}
+.cloud:after {
+  content: "";
+  position: absolute;
+  height: 4vw;
+  width: 4vw;
+  top: -1.9vw;
+  left: 2.6vw;
+  border-radius: 68%;
+  box-sizing: border-box;
+  border: 2px solid #f0ad4e;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  transform: rotate(54deg);
+
 }
