@@ -143,6 +143,7 @@
     
     socket.on('prompt message', function(msg){
       $('#title').html(msg);
+      $('#promptForm').css("display", "none");
     });
 
     function startProgressBar(){
@@ -165,6 +166,7 @@
       var new_item = $('<div class="cloud" >' + target + '</div>').hide();
       $('ul#voted-words').append(new_item);
       new_item.show('slow');
+      $('#promptForm').css("display", "inline-block");
       console.log(target);
     });
     
@@ -173,6 +175,7 @@
     });
 
     $(document).ready(function() {
+      $('#promptForm').css("display", "none");
       $("#vote").click(function(){
         socket.emit('vote');
         $("#vote").css('display', 'none');
