@@ -27,17 +27,12 @@
           </div>
 
           <div class = "col-lg-6"> 
-          <p id="ideators"> Ideators Active()</p> 
-          <p id="newPromptinstruction">*Press F3 for new prompt </p>
+            <p id="ideators"> Ideators Active()</p> 
+            <p id="newPromptinstruction">*Press F3 for new prompt </p>
           </div>
 
 
-        </div> <!--End of Progress Bar-->
-
-<!--       <div class = "row">
-        <div class ="col-sm-9"></div>
-        <div class = "col-sm-3" id="ideators"> Ideators Active() </div>
-      </div> -->
+        </div> 
 
       <div class = "row">
         <div class ="col-sm-9"></div>
@@ -74,15 +69,20 @@
           </form></div>
           <div class = "col-lg-1">
           <form>
-                <button type="submit" class="btn btn-warning">Send</button>
-                </form> <!--End of Input text area -->
+            <button type="submit" class="btn btn-warning">Send</button>
+          </form> <!--End of Input text area -->
           </div>
 
         <div class = "col-lg-6">
           <div id="canvas">
           </div> 
            <!-- This place is fot the drawing canvas feature -->
-
+          <div>
+              <form id="promptForm" action="/" method="post">
+                <input id="promptValue" type="text" class="form-prompt" name="prompt" placeholder="Enter new prompt...">
+                <button class="btn btn-warning" type="submit">Submit</button>
+              </form>
+          </div>
         </div>
         
       </div>
@@ -133,6 +133,16 @@
       if(messageNum == 1){
         progressBarTimer = setInterval(startProgressBar, 5);
       }
+    });
+
+    $('#promptForm').submit(function(){
+      socket.emit('prompt message', $('#promptValue').val());
+      $('#promptValue').val('');
+      return false;
+    });
+    
+    socket.on('prompt message', function(msg){
+      $('#title').html(msg);
     });
 
     function startProgressBar(){

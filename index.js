@@ -4,7 +4,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 
-
 var Canvas = require('canvas')
   , Image = Canvas.Image
   , canvas = new Canvas(500, 500)
@@ -96,6 +95,9 @@ io.on('connection', function(socket){
     users--; 
     io.emit('updateUsers', users);
   });
+    socket.on('prompt message', function(msg){
+      io.emit('prompt message', msg);
+    });
 });
 
 http.listen(3000, function(){
