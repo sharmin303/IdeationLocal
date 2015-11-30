@@ -150,6 +150,7 @@
     }
     };
 
+
     // function startProgressBar(){
     //   $(".progress-bar").css("width", "+=10");
     // };
@@ -171,6 +172,7 @@
     
     $("#messages").on("click", "li", function(event){
       socket.emit('countdown',$(event.target).text())
+
     });
 
     $(document).ready(function() {
@@ -183,6 +185,6 @@
     <div id = "countdown"> 
         5
     </div>
-    <button id="vote" class="btn btn-info" type="button">Vote Yes</button>
+    <button id="vote" class="btn btn-success" type="button">Like it!</button>
   </body>
 </html>

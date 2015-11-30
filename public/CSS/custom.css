@@ -52,6 +52,7 @@ top:40%;
 left:50%;
 font-size:100px;
 display:none;
+color: #980000;
 }
 
 #vote
@@ -128,7 +129,7 @@ text-align: center;
 #progressBar div{
   height: 100%;
   text-align: right;
-  padding: 0 10px;
+  padding: 0px;
   line-height: 22px; /* same as #progressBar height if we want text middle aligned */
   width: 0;
   background-color: #f0ad4e;
