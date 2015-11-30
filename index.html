@@ -79,7 +79,7 @@
            <!-- This place is fot the drawing canvas feature -->
           <div>
               <form id="promptForm" action="/" method="post">
-                <input id="promptValue" type="text" class="form-prompt" name="prompt" placeholder="Enter new prompt...">
+                <input id="promptValue" type="text" class="form-prompt" name="prompt" placeholder="Enter new brainstorming prompt...">
                 <button class="btn btn-warning" type="submit">Submit</button>
               </form>
           </div>
@@ -102,8 +102,11 @@
     highlighted.css({ 'color': 'red', 'font-size': '200%' });
     $("#countdown").css('display', 'inline-block');
     $("#vote").css('display', 'inline-block');
+    var audio = new Audio('sounds/Ping.wav');
+    audio.play();
     timer = setInterval(decrement, 1000);
     setTimeout(endVote, 6000);
+
     }
 
     function endVote() {
@@ -112,12 +115,17 @@
       $("#countdown").html("5");
       $("#countdown").css('display', 'none');
       $("#vote").css('display', 'none');
+
+
     }
 
     function decrement() {
       var countdown = $("#countdown");
       var nextNumber = parseInt(countdown.text()) - 1;
       $("#countdown").html(nextNumber);
+      var audio = new Audio('sounds/Ping.wav');
+      audio.play();
+
     }
 
     // Shorthand for on submit execute the below function, adding event handler
@@ -144,6 +152,8 @@
     socket.on('prompt message', function(msg){
       $('#title').html(msg);
       $('#promptForm').css("display", "none");
+      var promptaudio = new Audio('sounds/buttonchime.wav');
+      promptaudio.play();
     });
 
     function startProgressBar(){
@@ -152,6 +162,7 @@
 
     socket.on('startCountdown', function(target){
     countdown(target);
+
     });
 
     socket.on('updateUsers', function(users){
@@ -167,6 +178,8 @@
       $('ul#voted-words').append(new_item);
       new_item.show('slow');
       $('#promptForm').css("display", "inline-block");
+      var cloudAudio = new Audio('sounds/Blop.wav');
+      cloudAudio.play();
       console.log(target);
     });
     
