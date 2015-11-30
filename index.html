@@ -27,17 +27,12 @@
           </div>
 
           <div class = "col-lg-6"> 
-          <p id="ideators"> Ideators Active()</p> 
-          <p id="newPromptinstruction">*Press F3 for new prompt </p>
+            <p id="ideators"> Ideators Active()</p> 
+            <p id="newPromptinstruction">*Press F3 for new prompt </p>
           </div>
 
 
-        </div> <!--End of Progress Bar-->
-
-<!--       <div class = "row">
-        <div class ="col-sm-9"></div>
-        <div class = "col-sm-3" id="ideators"> Ideators Active() </div>
-      </div> -->
+        </div> 
 
       <div class = "row">
         <div class ="col-sm-9"></div>
@@ -74,15 +69,20 @@
           </form></div>
           <div class = "col-lg-1">
           <form>
-                <button type="submit" class="btn btn-warning">Send</button>
-                </form> <!--End of Input text area -->
+            <button type="submit" class="btn btn-warning">Send</button>
+          </form> <!--End of Input text area -->
           </div>
 
         <div class = "col-lg-6">
           <div id="canvas">
           </div> 
            <!-- This place is fot the drawing canvas feature -->
-
+          <div>
+              <form id="promptForm" action="/" method="post">
+                <input id="promptValue" type="text" class="form-prompt" name="prompt" placeholder="Enter new prompt...">
+                <button class="btn btn-warning" type="submit">Submit</button>
+              </form>
+          </div>
         </div>
         
       </div>
@@ -135,12 +135,27 @@
       }
     });
 
+    $('#promptForm').submit(function(){
+      socket.emit('prompt message', $('#promptValue').val());
+      $('#promptValue').val('');
+      return false;
+    });
+    
+    socket.on('prompt message', function(msg){
+      $('#title').html(msg);
+      $('#promptForm').css("display", "none");
+    });
+
     function startProgressBar(){
       $(".progress-bar").css("width", "+=10");
     };
 
     socket.on('startCountdown', function(target){
     countdown(target);
+    });
+
+    socket.on('updateUsers', function(users){
+      $('#usersCount').html('Users: ' + '<span class="badge">' + users + '</span>');
     });
 
     socket.on('success', function(target){
@@ -151,6 +166,7 @@
       var new_item = $('<div class="cloud" >' + target + '</div>').hide();
       $('ul#voted-words').append(new_item);
       new_item.show('slow');
+      $('#promptForm').css("display", "inline-block");
       console.log(target);
     });
     
@@ -159,6 +175,7 @@
     });
 
     $(document).ready(function() {
+      $('#promptForm').css("display", "none");
       $("#vote").click(function(){
         socket.emit('vote');
         $("#vote").css('display', 'none');

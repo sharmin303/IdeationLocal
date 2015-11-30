@@ -25,6 +25,10 @@ width: 80%;
       width: 50%!important;
 }
 
+.form-prompt{
+      width: 40%;
+}
+
 form #inputform{
       margin-left: 40%;
 }
