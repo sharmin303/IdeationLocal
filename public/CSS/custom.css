@@ -52,7 +52,7 @@ top:40%;
 left:50%;
 font-size:100px;
 display:none;
-color: #980000;
+color: #B80000 ;
 }
 
 #vote
@@ -117,24 +117,6 @@ text-align: center;
 }
 
 
-#progressBar {
-  width: 90%;
-  margin: 10px auto;
-  height: 22px;
-  border: 2px inset #E0E0E0!important;
-  background-color: #F0F0F0;
-
-}
-
-#progressBar div{
-  height: 100%;
-  text-align: right;
-  padding: 0px;
-  line-height: 22px; /* same as #progressBar height if we want text middle aligned */
-  width: 0;
-  background-color: #f0ad4e;
-  color: white;
-}
 
  .cloud {
   height: 3vw;
