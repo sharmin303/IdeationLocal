@@ -4,7 +4,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 
-
 var Canvas = require('canvas')
   , Image = Canvas.Image
   , canvas = new Canvas(500, 500)
@@ -12,6 +11,7 @@ var Canvas = require('canvas')
 
 var words = {};
 var messageNum = 0;
+var users = 0;
 
 function drawWord(word, fontAddition, x) {
   colors = ['blue', 'red', 'green', 'orange', 'purple'];
@@ -87,6 +87,17 @@ io.on('connection', function(socket){
     socket.on('vote', function(){
     voteCount++;
   });
+    socket.on('connect', function() { 
+    users++; 
+    io.emit('updateUsers', users);
+  });
+    socket.on('disconnect', function() { 
+    users--; 
+    io.emit('updateUsers', users);
+  });
+    socket.on('prompt message', function(msg){
+      io.emit('prompt message', msg);
+    });
 });
 
 http.listen(3000, function(){
