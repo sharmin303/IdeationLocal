@@ -26,7 +26,7 @@ width: 80%;
 }
 
 .form-prompt{
-      width: 40%;
+  width: 65%;
 }
 
 form #inputform{
@@ -48,6 +48,10 @@ padding: 5px 10px;
 #messages li:nth-child(odd) 
 { 
 background: #eee; 
+}
+
+#promptForm{
+  padding-left: 20%;
 }
 
 #countdown{

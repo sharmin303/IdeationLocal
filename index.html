@@ -2,9 +2,11 @@
 <html>
   <head>
     <title>Ideation</title>
-    <link href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet'>
+    <link href='//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css', rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
     <link rel='stylesheet' type ='text.css' href='CSS/custom.css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
   </head>
   <body>
@@ -76,24 +78,29 @@
         <div class = "col-lg-6">
           <div id="canvas">
           </div> 
-           <!-- This place is fot the drawing canvas feature -->
-          <div>
-              <form id="promptForm" action="/" method="post">
-                <input id="promptValue" type="text" class="form-prompt" name="prompt" placeholder="Enter new brainstorming prompt...">
-                <button class="btn btn-warning" type="submit">Submit</button>
-              </form>
-          </div>
+           <!-- This place is fot the drawing canvas feature -->    
         </div>
         
+      </div>
+
+      <div class="modal fade" id="pModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+               <div class="modal-header">
+                  <form id="promptForm" action="/" method="post">
+                    <input id="promptValue" type="text" class="form-prompt" name="prompt" placeholder="Enter new brainstorming prompt..."/>
+                    <button class="btn btn-warning" type="submit">Submit</button>
+                  </form>
+                  <br>
+                 </div>
+              </div>
+            </div>
       </div>
 
 
     </div> <!--End of container-->
 
-
-
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
     var socket = io();
     
@@ -151,7 +158,7 @@
     
     socket.on('prompt message', function(msg){
       $('#title').html(msg);
-      $('#promptForm').css("display", "none");
+      $('#pModal').modal('hide');
       var promptaudio = new Audio('sounds/buttonchime.wav');
       promptaudio.play();
     });
@@ -177,7 +184,7 @@
       var new_item = $('<div class="cloud" >' + target + '</div>').hide();
       $('ul#voted-words').append(new_item);
       new_item.show('slow');
-      $('#promptForm').css("display", "inline-block");
+      $('#pModal').modal('show');
       var cloudAudio = new Audio('sounds/Blop.wav');
       cloudAudio.play();
       console.log(target);
@@ -188,7 +195,7 @@
     });
 
     $(document).ready(function() {
-      $('#promptForm').css("display", "none");
+      $('#pModal').modal('hide');
       $("#vote").click(function(){
         socket.emit('vote');
         $("#vote").css('display', 'none');
