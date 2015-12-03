@@ -185,11 +185,11 @@ text-align: center;
 }
 
 
-.topDivHome .btn{
+#nav .btn{
   border:1px solid #f0ad4e; 
   color: #f0ad4e;
   font-size: 120%;
-  margin-top: 3%;
+  margin-top: 5%;
  }
 
 .topDivHome a{
@@ -235,18 +235,67 @@ text-align: center;
   margin-right: 0px!important;
 }
 
+/*section{
+  margin-top: 50%;
+}*/
+
+/*#nav{
+  position: fixed;
+}*/
 
 
+#HowWorks h1{
+  text-align: center;
+  color: #f0ad4e;
+
+}
+#HowWorks{
+  margin-top: 50%;
+}
+#HowWorks #firstP{
+  font-size: 120%;
+}
+#HowWorks #firstP b{
+  font-size: 140%;
+  color: #f0ad4e;
+}
+#HowWorks img{
+  max-width: 70%;
+}
+
+#HowWorks li{
+  margin-left: 4%;
+}
+ol{
+  font-size: 110%;
+}
+
+#scrollUp .btn{
+  border:1px solid #f0ad4e; 
+  color: #f0ad4e;
+}
+
+#scrollUp .btn{
+  margin-left: 25%;
+}
 
 
+#team img{
+  width: 45%;
+  border: 5px solid white;
+  border-radius: 100%;
+  display: block;
+  margin:auto auto;
+}
 
+#team{
+  margin-top: 10%;
+  background-color: #f0ad4e;
+}
 
-
-
-
-
-
-
-
-
-
+#team p{
+  text-align: center;
+  font-weight: bold;
+  margin-top: 3%;
+  font-size: 105%;
+}

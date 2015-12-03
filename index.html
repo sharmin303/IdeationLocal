@@ -2,18 +2,20 @@
 <html>
   <head>
     <title>Ideation</title>
-    <link href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet'>
+    <link href='//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css', rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
     <link rel='stylesheet' type ='text.css' href='CSS/custom.css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
   </head>
   <body>
     <div class="container">
       <div class="row">
         <div class="col-lg-10">
-          <h3 id="title">What is the most popular tech buzz word?</h3></div>
+          <h3 id="title">What team activity should we do after class?</h3></div>
           <div class ="col-lg-2" id = "logo" >
-            <a href = "/" ><img src = "images/logo.png" alt = "logo" ></a>
+            <a href = "index.html" ><img src = "images/logo.png" alt = "logo" ></a>
           </div>
       </div>
 
@@ -42,15 +44,27 @@
 
         <div class="col-sm-2 full-height"> <!--Activity Feed -->
           <div class="panel panel-warning panelHeight">
-            <div class="panel-heading" id="activityFeed">Idea Log</div>
-            <div class="panel-body" id="panelBodyHeight" >
+            <div class="panel-heading">Idea Log</div>
+            <div class="panel-body feedParent" id="panelBodyHeight" >
               <ul class="list-group" id="messages" > </ul>
             </div>       
           </div>
         </div> <!--End of activity feed -->
 
-        <div class="col-sm-8">
+        <div class="col-sm-4">
             <div id="wordcloud"></div>
+        </div>
+
+        <div class ="col-lg-2 full-height">
+            <div class = "panelHeight" id="VotedBodyHeight">
+              <ul id="voted-words3"></ul>
+            </div>
+        </div>
+
+          <div class ="col-lg-2 full-height">
+            <div class = "panelHeight" id="VotedBodyHeight">
+              <ul id="voted-words2"></ul>
+            </div>
         </div>
 
         <div class ="col-lg-2 full-height">
@@ -69,36 +83,42 @@
           </form></div>
           <div class = "col-lg-1">
           <form>
-            <button type="submit" class="btn btn-warning">Send</button>
+            <button type="submit" class="btn btn-warning sendMessage">Send</button>
           </form> <!--End of Input text area -->
           </div>
 
         <div class = "col-lg-6">
-          <div id="canvas">
-          </div> 
-           <!-- This place is fot the drawing canvas feature -->
-          <div>
-              <form id="promptForm" action="/" method="post">
-                <input id="promptValue" type="text" class="form-prompt" name="prompt" placeholder="Enter new brainstorming prompt...">
-                <button class="btn btn-warning" type="submit">Submit</button>
-              </form>
-          </div>
+
         </div>
         
+      </div>
+
+      <div class="modal fade" id="pModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+               <div class="modal-header">
+                  <form id="promptForm" action="/" method="post">
+                    <input id="promptValue" type="text" class="form-prompt" name="prompt" placeholder="Enter new brainstorming prompt..."/>
+                    <button class="btn btn-warning" type="submit">Submit</button>
+                  </form>
+                  <br>
+                 </div>
+              </div>
+            </div>
       </div>
 
 
     </div> <!--End of container-->
 
-
-
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-    var socket = io();
     
+    var socket = io();
+    active = false;
+    branches = ["voted-words","voted-words2","voted-words3"];
+    curSet = 0;
     function countdown(toHighLight){
-    highlighted = $("li:contains('" + toHighLight + "')");
+    highlighted = $("#messages > li:contains('" + toHighLight + "')");
     highlighted.css({ 'color': 'red', 'font-size': '200%' });
     $("#countdown").css('display', 'inline-block');
     $("#vote").css('display', 'inline-block');
@@ -106,28 +126,31 @@
     audio.play();
     timer = setInterval(decrement, 1000);
     setTimeout(endVote, 6000);
-
     }
-
+    function appendToBranch(item) {
+      if(curSet <= 2) {
+      curBranch = 'ul#' + branches[curSet]
+      $(curBranch).append(item);
+      }
+      else{
+        $(curBranch).append('ul#voted-words');
+      }
+    }
     function endVote() {
       clearInterval(timer);
       highlighted.css({ 'color': 'black', 'font-size': '100%' });
       $("#countdown").html("5");
       $("#countdown").css('display', 'none');
       $("#vote").css('display', 'none');
-
-
+      active = false;
     }
-
     function decrement() {
       var countdown = $("#countdown");
       var nextNumber = parseInt(countdown.text()) - 1;
       $("#countdown").html(nextNumber);
       var audio = new Audio('sounds/Ping.wav');
       audio.play();
-
     }
-
     // Shorthand for on submit execute the below function, adding event handler
     $('#inputForm').submit(function(){
     socket.emit('chat message', $('#submit').val());
@@ -142,7 +165,6 @@
         progressBarTimer = setInterval(startProgressBar, 5);
       }
     });
-
     $('#promptForm').submit(function(){
       socket.emit('prompt message', $('#promptValue').val());
       $('#promptValue').val('');
@@ -151,44 +173,49 @@
     
     socket.on('prompt message', function(msg){
       $('#title').html(msg);
-      $('#promptForm').css("display", "none");
+      $('#pModal').modal('hide');
       var promptaudio = new Audio('sounds/buttonchime.wav');
       promptaudio.play();
     });
-
     function startProgressBar(){
       $(".progress-bar").css("width", "+=10");
     };
-
     socket.on('startCountdown', function(target){
     countdown(target);
-
     });
-
     socket.on('updateUsers', function(users){
       $('#usersCount').html('Users: ' + '<span class="badge">' + users + '</span>');
     });
-
     socket.on('success', function(target){
       $('#wordcloud').html(wordcloud);
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
-      var new_item = $('<div class="cloud" >' + target + '</div>').hide();
-      $('ul#voted-words').append(new_item);
+      var new_item = $('<li class="cloud" >' + target + '</li>').hide();
+      appendToBranch(new_item);
       new_item.show('slow');
-      $('#promptForm').css("display", "inline-block");
+      $('#pModal').modal('show');
       var cloudAudio = new Audio('sounds/Blop.wav');
       cloudAudio.play();
       console.log(target);
     });
     
     $("#messages").on("click", "li", function(event){
+      if(!active){
       socket.emit('countdown',$(event.target).text())
+      active = true;
+      }
     });
-
+   $("#voted-words,#voted-words1,#voted-words2").on("click", "li", function(event){
+          var root_elem = $(event.target).text();
+          var new_item = $('<li class="cloud" >' + root_elem + '</li>').hide();
+          $('#pModal').modal('show');
+          curSet++;
+          appendToBranch(new_item);
+          new_item.show('slow');
+    });
     $(document).ready(function() {
-      $('#promptForm').css("display", "none");
+      $('#pModal').modal('hide');
       $("#vote").click(function(){
         socket.emit('vote');
         $("#vote").css('display', 'none');
