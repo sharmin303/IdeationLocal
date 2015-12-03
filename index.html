@@ -44,15 +44,27 @@
 
         <div class="col-sm-2 full-height"> <!--Activity Feed -->
           <div class="panel panel-warning panelHeight">
-            <div class="panel-heading" id="activityFeed">Idea Log</div>
-            <div class="panel-body" id="panelBodyHeight" >
+            <div class="panel-heading">Idea Log</div>
+            <div class="panel-body feedParent" id="panelBodyHeight" >
               <ul class="list-group" id="messages" > </ul>
             </div>       
           </div>
         </div> <!--End of activity feed -->
 
-        <div class="col-sm-8">
+        <div class="col-sm-4">
             <div id="wordcloud"></div>
+        </div>
+
+        <div class ="col-lg-2 full-height">
+            <div class = "panelHeight" id="VotedBodyHeight">
+              <ul id="voted-words3"></ul>
+            </div>
+        </div>
+
+          <div class ="col-lg-2 full-height">
+            <div class = "panelHeight" id="VotedBodyHeight">
+              <ul id="voted-words2"></ul>
+            </div>
         </div>
 
         <div class ="col-lg-2 full-height">
@@ -103,9 +115,11 @@
     
     var socket = io();
     active = false;
+    branches = ["voted-words","voted-words2","voted-words3"];
+    curSet = 0;
 
     function countdown(toHighLight){
-    highlighted = $("li:contains('" + toHighLight + "')");
+    highlighted = $("#messages > li:contains('" + toHighLight + "')");
     highlighted.css({ 'color': 'red', 'font-size': '200%' });
     $("#countdown").css('display', 'inline-block');
     $("#vote").css('display', 'inline-block');
@@ -114,6 +128,16 @@
     timer = setInterval(decrement, 1000);
     setTimeout(endVote, 6000);
 
+    }
+
+    function appendToBranch(item) {
+      if(curSet <= 2) {
+      curBranch = 'ul#' + branches[curSet]
+      $(curBranch).append(item);
+      }
+      else{
+        $(curBranch).append('ul#voted-words');
+      }
     }
 
     function endVote() {
@@ -181,7 +205,7 @@
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
       var new_item = $('<li class="cloud" >' + target + '</li>').hide();
-      $('ul#voted-words').append(new_item);
+      appendToBranch(new_item);
       new_item.show('slow');
       $('#pModal').modal('show');
       var cloudAudio = new Audio('sounds/Blop.wav');
@@ -196,8 +220,13 @@
       }
     });
 
-   $("#voted-words").on("click", "li", function(event){
-      console.log($(event.target).text());
+   $("#voted-words,#voted-words1,#voted-words2").on("click", "li", function(event){
+          var root_elem = $(event.target).text();
+          var new_item = $('<li class="cloud" >' + root_elem + '</li>').hide();
+          $('#pModal').modal('show');
+          curSet++;
+          appendToBranch(new_item);
+          new_item.show('slow');
     });
 
     $(document).ready(function() {

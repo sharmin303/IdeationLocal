@@ -107,6 +107,12 @@ text-align: center;
 #voted-words{
   list-style-type: none;
 }
+#voted-words2{
+  list-style-type: none;
+}
+#voted-words3{
+  list-style-type: none;
+}
 
 .panelHeight{
   overflow: hidden;
