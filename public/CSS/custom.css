@@ -162,3 +162,91 @@ text-align: center;
   transform: rotate(54deg);
 
 }
+
+
+/* ------------------ HOME PAGE CSS ------------- */
+
+.homePageBg{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.topDivHome{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 50%;
+  background-color:white;
+  text-align:center;
+}
+
+
+.topDivHome .btn{
+  border:1px solid #f0ad4e; 
+  color: #f0ad4e;
+  font-size: 120%;
+  margin-top: 3%;
+ }
+
+.topDivHome a{
+  margin-right: 7%;
+}
+
+.bottomDivHome{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color:#f0ad4e;
+  text-align:center;
+  color:#FFFFFF;
+
+}
+
+#welcome img {
+  width: 45%;
+  display: block;
+  margin-left:auto;
+  margin-right: auto; 
+  margin-top: 2%;
+}
+
+
+.bottomDivHome a {
+  margin-top: 3%;
+  font-size: 150%;
+  color: black;
+}
+.bottomDivHome .btn{
+  border: 2px solid transparent;
+}
+
+
+
+
+
+#home .row{
+  margin-left: 0px!important; 
+  margin-right: 0px!important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
