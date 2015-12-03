@@ -89,6 +89,9 @@ padding-bottom: 1%;}
 text-align: center;
 }
 
+.sendMessage {
+  margin-left: 3%;
+}
 
 #panelBodyHeight{
     height: 270px;
