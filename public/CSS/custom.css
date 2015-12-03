@@ -99,6 +99,10 @@ text-align: center;
 
 }
 
+#voted-words{
+  list-style-type: none;
+}
+
 .panelHeight{
   overflow: hidden;
 }
@@ -108,18 +112,6 @@ text-align: center;
       position: relative;
       left: 15%;
 }
-
-#canvas{
-      border: 2px black;
-      width: 450px;
-      height: 250px;
-      /*background-color: lightgrey;*/
-      position: fixed;
-      bottom: 5px;
-      margin-left: 8%;
-}
-
-
 
  .cloud {
   height: 3vw;
@@ -131,6 +123,7 @@ text-align: center;
   margin-top: 2vw;
   text-align: center;
   margin-left: 30%;
+
 }
 .cloud:before {
   content: "";

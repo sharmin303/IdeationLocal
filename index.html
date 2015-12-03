@@ -74,8 +74,6 @@
           </div>
 
         <div class = "col-lg-6">
-          <div id="canvas">
-          </div> 
            <!-- This place is fot the drawing canvas feature -->
           <div>
               <form id="promptForm" action="/" method="post">
@@ -95,8 +93,10 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-    var socket = io();
     
+    var socket = io();
+    active = false;
+
     function countdown(toHighLight){
     highlighted = $("li:contains('" + toHighLight + "')");
     highlighted.css({ 'color': 'red', 'font-size': '200%' });
@@ -112,6 +112,7 @@
       $("#countdown").html("5");
       $("#countdown").css('display', 'none');
       $("#vote").css('display', 'none');
+      active = false;
     }
 
     function decrement() {
@@ -163,7 +164,7 @@
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
-      var new_item = $('<div class="cloud" >' + target + '</div>').hide();
+      var new_item = $('<li class="cloud" >' + target + '</li>').hide();
       $('ul#voted-words').append(new_item);
       new_item.show('slow');
       $('#promptForm').css("display", "inline-block");
@@ -171,7 +172,14 @@
     });
     
     $("#messages").on("click", "li", function(event){
+      if(!active){
       socket.emit('countdown',$(event.target).text())
+      active = true;
+      }
+    });
+
+   $("#voted-words").on("click", "li", function(event){
+      console.log($(event.target).text());
     });
 
     $(document).ready(function() {
