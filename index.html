@@ -30,7 +30,7 @@
 
           <div class = "col-lg-6"> 
             <p id="ideators"> Ideators Active()</p> 
-            <p id="newPromptinstruction">*Press F3 for new prompt </p>
+            <p id="newPromptinstruction">*Press 0(zero) for new prompt </p>
           </div>
 
 
@@ -162,7 +162,7 @@
       $('#messages').append($('<li class="list-group-item-warning">').text(msg));
       $('#wordcloud').html(wordcloud);
       if(messageNum == 1){
-        progressBarTimer = setInterval(startProgressBar, 5);
+        progressBarTimer = setInterval(startProgressBar, 2);
       }
       var promptaudio = new Audio('sounds/Silencer.wav');
       promptaudio.play();
@@ -181,7 +181,18 @@
     });
     function startProgressBar(){
       $(".progress-bar").css("width", "+=10");
+
+       $('.progress .progress-bar').progressbar({
+        done: function() { var promptaudio = new Audio('sounds/Silencer.wav');
+      promptaudio.play(); }
+    });
     };
+
+    $(document).keypress(function(e){
+   if(e.charCode == 48){
+      $('#pModal').modal('show');
+  }
+ })
     socket.on('startCountdown', function(target){
     countdown(target);
     });

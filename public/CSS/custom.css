@@ -26,13 +26,16 @@ width: 80%;
 }
 
 .form-prompt{
-      width: 40%;
+      width: 80%;
 }
 
 form #inputform{
       margin-left: 40%;
 }
 
+#promptForm{
+margin-left: 10%;
+}
 #messages 
 {
 list-style-type: none; 
