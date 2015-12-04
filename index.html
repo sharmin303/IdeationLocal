@@ -164,6 +164,8 @@
       if(messageNum == 1){
         progressBarTimer = setInterval(startProgressBar, 5);
       }
+      var promptaudio = new Audio('sounds/Silencer.wav');
+      promptaudio.play();
     });
     $('#promptForm').submit(function(){
       socket.emit('prompt message', $('#promptValue').val());
