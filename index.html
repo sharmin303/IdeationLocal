@@ -28,9 +28,10 @@
             </div>
           </div>
 
-          <div class = "col-lg-6"> 
+          <div class = "col-lg-2 col-lg-offset-4 "> 
             <p id="ideators"> Ideators Active()</p> 
-            <p id="newPromptinstruction">*Press 0(zero) for new prompt </p>
+            <!-- <p id="newPromptinstruction">*Press 0(zero) for new prompt </p> -->
+            <button class = "btn btn-success btn-sm pull-right" id="reset" onclick="socket.emit('reset')">Reset</button>
           </div>
 
 
@@ -151,6 +152,7 @@
       var audio = new Audio('sounds/Ping.wav');
       audio.play();
     }
+
     // Shorthand for on submit execute the below function, adding event handler
     $('#inputForm').submit(function(){
     socket.emit('chat message', $('#submit').val());
@@ -204,7 +206,7 @@
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
-      var new_item = $('<li class="cloud" >' + target + '</li>').hide();
+      var new_item = $('<div class="cloud" >' + target + '</div>').hide();
       appendToBranch(new_item);
       new_item.show('slow');
       $('#pModal').modal('show');
@@ -212,6 +214,13 @@
       cloudAudio.play();
       console.log(target);
     });
+
+    // $("#reset").on('click', function (data) {
+    //   $('#wordcloud').html("");
+    //   $('#messages').html("");
+    //   clearInterval(progressBarTimer);
+    //   $('.progress-bar').css("width", "0");
+    // });
     
     $("#messages").on("click", "li", function(event){
       if(!active){
@@ -219,14 +228,25 @@
       active = true;
       }
     });
-   $("#voted-words,#voted-words1,#voted-words2").on("click", "li", function(event){
+   $("#voted-words,#voted-words1,#voted-words2").on("click", "div", function(event){
           var root_elem = $(event.target).text();
-          var new_item = $('<li class="cloud" >' + root_elem + '</li>').hide();
+          var new_item = $('<div class="cloud" >' + root_elem + '</div>').hide();
           $('#pModal').modal('show');
           curSet++;
           appendToBranch(new_item);
           new_item.show('slow');
+          $(new_item).addClass('activeVotedCloud');
+          $(event.target).addClass('activeVotedCloud');
     });
+
+
+  // $("#voted-words,#voted-words1,#voted-words2").on("click", function() {
+  //     // $(this).toggleClass("activeVotedCol");
+  //     $("#voted-words,#voted-words1,#voted-words2").removeClass('activeVotedCol');
+  //     // $(this).parent().addClass('active');
+  // }); 
+
+
     $(document).ready(function() {
       $('#pModal').modal('hide');
       $("#vote").click(function(){
