@@ -103,6 +103,14 @@ text-align: center;
 
 }
 
+.activeBranch{
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: limegreen;
+  margin-left: 50px;
+}
+
 .activeVotedCloud{
   border: 3px solid purple!important;
   border-top: transparent!important;
