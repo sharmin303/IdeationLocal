@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Ideation</title>
+    <link href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet' type ='text.css' href='CSS/custom.css'>
+
+
+
+  </head>
+  <body id = "home">
+   
+
+        <div class = "homePageBg" id="welcome"> <!--WELCOME PAGE -->
+          <div class = "topDivHome">
+            <div class = "row">
+              <nav class="col-lg-4 col-lg-offset-8" id = "nav">
+                  <a class="btn btn-default" href="#HowWorks" role="button">How it Works?</a>
+                  <a class="btn btn-default" href="#team" role="button">Team</a>
+              </nav>
+            </div>
+
+
+            <div class = "row">
+              <div class = ".col-md-6 .col-md-offset-3">
+                <a href = "/ideation" > <img src = "images/logo.png" alt = "logo" > </a>
+              </div>
+            </div>
+          </div>
+
+          <div class = "bottomDivHome">
+            <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                <a href = "/ideation" type="button" class="btn btn-default btn-lg btn-block">Start Brainstorming ! </a>
+                </div>
+            </div>
+          </div>
+        </div> <!--WELCOME PAGE OVER -->
+
+        <br><br> <br> <br>
+
+        <section> <!-- HOW IT WORKS PAGE -->
+        <div  id="HowWorks">
+
+            <div class = "row">
+              <div class = "col-md-6 col-md-offset-3">
+                <h1>How It Works ? </h1>                 
+              </div>
+
+              <nav class="col-lg-2 col-md-offset-1" id = "nav">
+                  <a class="btn btn-default" href="#team" role="button">Team</a>
+              </nav>
+            </div>
+            <br>
+            <div class = "row" id="firstP">
+              <div class = "col-md-8 col-md-offset-1">
+                  <p> Do you feel like the brainstorming process has become boring nowadays ? Or perhaps are you clueless and confused about what to do for your next project, what techs to use or maybe where to hangout with your friends ? That’s what <b>Ideation</b> is here for ! </p>
+              </div>
+            </div>    
+            <br>
+
+            <ol>
+                <div class = "row">
+                  <div class = "col-md-6 col-md-offset-1">
+                      <li>
+                        <p>Set your brainstorming prompt and simply type in the ideas in a given time.  </p></li>
+                  </div>
+
+                  <div class = "col-md-5">
+                  <img src = "images/text-input.png" alt = "logo" >
+                  </div>
+
+                </div>   
+
+                <br>
+                
+                <div class = "row">
+                  <div class = "col-md-6 col-md-offset-1">
+                  <li><p>If more than one users enter the same idea, the word becomes bigger in the word cloud.</p></li>
+                  </div>
+
+                  <div class = "col-md-5">
+                  <img src = "images/word-cloud.png" alt = "logo" >
+                  </div>
+                </div>
+
+                <br>
+
+                <div class = "row">
+                
+                  <div class = "col-md-6 col-md-offset-1">
+                  
+                  <li><p>Anyone can start a vote by clicking on an idea from the idea log. You can either choose not to vote by not clicking anything during the voting phase or choose to Vote.</p></li>
+                  </div>
+
+                  <div class = "col-md-5">
+                  <img src = "images/vote.png" alt = "logo" >
+                  </div>
+                </div>
+
+                <br>
+
+                <div class = "row">
+                  <div class = "col-md-6 col-md-offset-1">
+                  <li><p>If majority votes for the same word, the word is decided and forms a thought bubble ! As you keep on ideating, you can see your thought process on the right side of your screen. You can also branch out of a voted idea and start brainstorming more about that idea.</p></li>
+                  </div>
+
+                  <div class = "col-md-5">
+                  <img src = "images/cloud.png" >
+                  </div>
+                </div>
+
+                <br>
+
+              <div class = "row">
+                <div class = "col-md-6 col-md-offset-1">
+                    <li><p>Be careful as you have a countdown timer during both the brainstorming phase and voting phase !</p> </li>
+                </div>
+
+                <div class = "col-md-2 col-md-offset-3" id="scrollUp">
+                  <a href="#welcome" class="btn btn-default" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                  </a>
+                </div>
+
+              </div>  
+            </ol>
+            
+        </div>
+
+        </section> <!-- HOW IT WORKS PAGE OVER-->
+
+
+        <section id ="team">
+
+
+            <div class = "row">
+              <div class = "col-md-6 col-md-offset-5">
+                <h1>Our Team </h1>                 
+              </div>
+            </div>
+            <br>
+            <br>
+
+            <div class = "row" id="members">
+            <div class = "col-md-4">
+              <img  src="images/daniel.png">
+              <p>Daniel Shlyuger <br>
+              Information Systems </p>
+            </div>
+
+            <div class = "col-md-4">
+              <img  src="images/sharmin.png">
+              <p>Sharmin Islam <br>
+              Information Systems </p>
+            </div>  
+
+            <div class = "col-md-4">
+              <img  src="images/graham1.png">
+              <p>Graham Schilling<br>
+              Information Systems </p>
+            </div>
+          </div>
+          
+          <br>
+          <br>
+          <br>
+
+        </section> <!-- TEAM PAGE OVER-->
+
+
+
+
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js"></script>
+  <script>
+  $(function(){
+    $("#nav a,#scrollUp a").click(function(e){
+      e.preventDefault();
+      $('html,body').scrollTo(this.hash,this.hash); 
+    });
+  });
+  </script>
+  </body>
+</html>

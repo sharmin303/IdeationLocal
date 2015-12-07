@@ -26,13 +26,16 @@ width: 80%;
 }
 
 .form-prompt{
-  width: 65%;
+      width: 80%;
 }
 
 form #inputform{
       margin-left: 40%;
 }
 
+#promptForm{
+margin-left: 10%;
+}
 #messages 
 {
 list-style-type: none; 
@@ -48,10 +51,6 @@ padding: 5px 10px;
 #messages li:nth-child(odd) 
 { 
 background: #eee; 
-}
-
-#promptForm{
-  padding-left: 20%;
 }
 
 #countdown{
@@ -77,7 +76,7 @@ display:none;
 color:#f0ad4e; 
 text-align: right; 
 font-size: 15px;
-margin-top: 2%;
+margin-top: 5%;
 }
 
 #newPromptinstruction{
@@ -89,9 +88,6 @@ padding-bottom: 1%;}
 text-align: center;
 }
 
-.sendMessage {
-  margin-left: 3%;
-}
 
 #panelBodyHeight{
     height: 270px;
@@ -100,21 +96,35 @@ text-align: center;
 }
 
 #VotedBodyHeight{
-    height: 300px;
+    height: 500px;
     margin-bottom: 0;
     overflow: auto;
     /*border: 1px solid black;*/
 
 }
 
-#voted-words{
-  list-style-type: none;
+.activeBranch{
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: limegreen;
+  margin-left: 50px;
 }
-#voted-words2{
-  list-style-type: none;
+
+.activeVotedCloud{
+  border: 3px solid purple!important;
+  border-top: transparent!important;
 }
-#voted-words3{
-  list-style-type: none;
+
+.activeVotedCloud:before {
+border: 3px solid purple!important;
+  border-bottom-color: transparent!important;
+  border-right-color: transparent!important;
+}
+.activeVotedCloud:after {
+border: 3px solid purple!important;
+  border-bottom-color: transparent!important;
+  border-right-color: transparent!important;
 }
 
 .panelHeight{
@@ -127,6 +137,18 @@ text-align: center;
       left: 15%;
 }
 
+#canvas{
+      border: 2px black;
+      width: 450px;
+      height: 250px;
+      /*background-color: lightgrey;*/
+      position: fixed;
+      bottom: 5px;
+      margin-left: 8%;
+}
+
+
+
  .cloud {
   height: 3vw;
   width: 8vw;
@@ -137,7 +159,6 @@ text-align: center;
   margin-top: 2vw;
   text-align: center;
   margin-left: 30%;
-
 }
 .cloud:before {
   content: "";
@@ -167,4 +188,141 @@ text-align: center;
   border-right-color: transparent;
   transform: rotate(54deg);
 
+}
+
+
+/* ------------------ HOME PAGE CSS ------------- */
+
+.homePageBg{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.topDivHome{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 50%;
+  background-color:white;
+  text-align:center;
+}
+
+
+#nav .btn{
+  border:1px solid #f0ad4e; 
+  color: #f0ad4e;
+  font-size: 120%;
+  margin-top: 5%;
+ }
+
+.topDivHome a{
+  margin-right: 7%;
+}
+
+.bottomDivHome{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color:#f0ad4e;
+  text-align:center;
+  color:#FFFFFF;
+
+}
+
+#welcome img {
+  width: 45%;
+  display: block;
+  margin-left:auto;
+  margin-right: auto; 
+  margin-top: 2%;
+}
+
+
+.bottomDivHome a {
+  margin-top: 3%;
+  font-size: 150%;
+  color: black;
+}
+.bottomDivHome .btn{
+  border: 2px solid transparent;
+}
+
+
+
+
+
+#home .row{
+  margin-left: 0px!important; 
+  margin-right: 0px!important;
+}
+
+/*section{
+  margin-top: 50%;
+}*/
+
+/*#nav{
+  position: fixed;
+}*/
+
+
+#HowWorks h1{
+  text-align: center;
+  color: #f0ad4e;
+
+}
+#HowWorks{
+  margin-top: 50%;
+}
+#HowWorks #firstP{
+  font-size: 120%;
+}
+#HowWorks #firstP b{
+  font-size: 140%;
+  color: #f0ad4e;
+}
+#HowWorks img{
+  max-width: 70%;
+}
+
+#HowWorks li{
+  margin-left: 4%;
+}
+ol{
+  font-size: 110%;
+}
+
+#scrollUp .btn{
+  border:1px solid #f0ad4e; 
+  color: #f0ad4e;
+}
+
+#scrollUp .btn{
+  margin-left: 25%;
+}
+
+
+#team img{
+  width: 45%;
+  border: 7px solid white;
+  border-radius: 100%;
+  display: block;
+  margin:auto auto;
+}
+
+#team{
+  margin-top: 10%;
+  background-color: #f0ad4e;
+}
+
+#team p{
+  text-align: center;
+  font-weight: bold;
+  margin-top: 3%;
+  font-size: 105%;
 }

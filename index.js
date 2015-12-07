@@ -68,10 +68,14 @@ function startNewRound(){
 
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/home.html');
   app.use(express.static(__dirname + '/public'));
 });
 
+app.get('/ideation', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+  app.use(express.static(__dirname + '/public'));
+});
 
 io.on('connection', function(socket){
     socket.on('chat message', function(msg){
