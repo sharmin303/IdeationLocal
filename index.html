@@ -133,8 +133,8 @@
       curBranch = 'ul#' + branches[curSet]
       $(curBranch).append(item);
       }
-      else{
-        $(curBranch).append('ul#voted-words');
+      else if(curSet > 3){
+        $('ul#voted-words').append(item);
       }
     }
     function endVote() {
@@ -206,7 +206,7 @@
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
-      var new_item = $('<div class="cloud" >' + target + '</div>').hide();
+      var new_item = $('<li class="cloud" >' + target + '</li>').hide();
       appendToBranch(new_item);
       new_item.show('slow');
       $('#pModal').modal('show');
@@ -228,10 +228,11 @@
       active = true;
       }
     });
-   $("#voted-words,#voted-words1,#voted-words2").on("click", "div", function(event){
+   $("#voted-words,#voted-words2,#voted-words3").on("click", "li", function(event){
           var root_elem = $(event.target).text();
-          var new_item = $('<div class="cloud" >' + root_elem + '</div>').hide();
+          var new_item = $('<li class="cloud" >' + root_elem + '</li>').hide();
           $('#pModal').modal('show');
+          console.log("lol");
           curSet++;
           appendToBranch(new_item);
           new_item.show('slow');

@@ -3,6 +3,9 @@
 html, body, .full-height {
     height: 100%;
 }
+li{
+  list-style-type: none; 
+}
 body
 { 
 font-family: 'Varela Round', 
@@ -38,7 +41,6 @@ margin-left: 10%;
 }
 #messages 
 {
-list-style-type: none; 
 margin: 0; 
 padding: 0; 
 }
