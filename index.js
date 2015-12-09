@@ -103,6 +103,11 @@ io.on('connection', function(socket){
     socket.on('prompt message', function(msg){
       io.emit('prompt message', msg);
     });
+    socket.on('reset', function() {
+      startNewRound();
+      wordcloud = '<img src="" />'
+      io.emit('reset', wordcloud);
+    });
 });
 
 http.listen(app.get('port'), function(){
