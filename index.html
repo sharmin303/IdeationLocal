@@ -111,7 +111,7 @@
 
     </div> <!--End of container-->
 
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+       <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script>
     
     var socket = io();
@@ -120,7 +120,7 @@
     curSet = 0;
     function countdown(toHighLight){
     highlighted = $("#messages > li:contains('" + toHighLight + "')");
-    highlighted.css({ 'color': 'white', 'font-size': '200%' , 'background-color': '#AD2A1A' });
+    highlighted.css({ 'color': 'white', 'font-size': '200%' , 'background-color': '#AD2A1A'});
     $("#countdown").css('display', 'inline-block');
     $("#vote").css('display', 'inline-block');
     var audio = new Audio('sounds/Ping.wav');
@@ -139,7 +139,7 @@
     }
     function endVote() {
       clearInterval(timer);
-      highlighted.css({ 'color': 'black', 'font-size': '100%', 'background-color':'#eee' });
+      highlighted.css({ 'color': 'black', 'font-size': '100%' , 'background-color': '#eee'});
       $("#countdown").html("5");
       $("#countdown").css('display', 'none');
       $("#vote").css('display', 'none');
@@ -152,7 +152,6 @@
       var audio = new Audio('sounds/Ping.wav');
       audio.play();
     }
-
     // Shorthand for on submit execute the below function, adding event handler
     $('#inputForm').submit(function(){
     socket.emit('chat message', $('#submit').val());
@@ -183,13 +182,11 @@
     });
     function startProgressBar(){
       $(".progress-bar").css("width", "+=10");
-
        $('.progress .progress-bar').progressbar({
         done: function() { var promptaudio = new Audio('sounds/Silencer.wav');
       promptaudio.play(); }
     });
     };
-
     $(document).keypress(function(e){
    if(e.charCode == 48){
       $('#pModal').modal('show');
@@ -214,14 +211,18 @@
       cloudAudio.play();
       console.log(target);
     });
-
     socket.on('reset', function(wordcloud){
       $('#wordcloud').html(wordcloud);
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
     });
-
+    // $("#reset").on('click', function (data) {
+    //   $('#wordcloud').html("");
+    //   $('#messages').html("");
+    //   clearInterval(progressBarTimer);
+    //   $('.progress-bar').css("width", "0");
+    // });
     
     $("#messages").on("click", "li", function(event){
       if(!active){
@@ -240,8 +241,6 @@
           $(new_item).addClass('activeVotedCloud');
           $(event.target).addClass('activeVotedCloud');
     });
-
-
 
     $(document).ready(function() {
       $('#pModal').modal('hide');
