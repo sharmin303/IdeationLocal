@@ -120,7 +120,7 @@
     curSet = 0;
     function countdown(toHighLight){
     highlighted = $("#messages > li:contains('" + toHighLight + "')");
-    highlighted.css({ 'color': 'red', 'font-size': '200%' });
+    highlighted.css({ 'color': 'white', 'font-size': '200%' , 'background-color': '#AD2A1A' });
     $("#countdown").css('display', 'inline-block');
     $("#vote").css('display', 'inline-block');
     var audio = new Audio('sounds/Ping.wav');
@@ -139,7 +139,7 @@
     }
     function endVote() {
       clearInterval(timer);
-      highlighted.css({ 'color': 'black', 'font-size': '100%' });
+      highlighted.css({ 'color': 'black', 'font-size': '100%', 'background-color':'#eee' });
       $("#countdown").html("5");
       $("#countdown").css('display', 'none');
       $("#vote").css('display', 'none');
@@ -222,12 +222,6 @@
       $('.progress-bar').css("width", "0");
     });
 
-    // $("#reset").on('click', function (data) {
-    //   $('#wordcloud').html("");
-    //   $('#messages').html("");
-    //   clearInterval(progressBarTimer);
-    //   $('.progress-bar').css("width", "0");
-    // });
     
     $("#messages").on("click", "li", function(event){
       if(!active){
@@ -247,12 +241,6 @@
           $(event.target).addClass('activeVotedCloud');
     });
 
-
-  // $("#voted-words,#voted-words1,#voted-words2").on("click", function() {
-  //     // $(this).toggleClass("activeVotedCol");
-  //     $("#voted-words,#voted-words1,#voted-words2").removeClass('activeVotedCol');
-  //     // $(this).parent().addClass('active');
-  // }); 
 
 
     $(document).ready(function() {
