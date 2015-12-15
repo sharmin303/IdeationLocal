@@ -219,13 +219,10 @@
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
+      $('#voted-words').html("");
+      $('#voted-words2').html("");
+      $('#voted-words3').html("");
     });
-    // $("#reset").on('click', function (data) {
-    //   $('#wordcloud').html("");
-    //   $('#messages').html("");
-    //   clearInterval(progressBarTimer);
-    //   $('.progress-bar').css("width", "0");
-    // });
     
     $("#messages").on("click", "li", function(event){
       if(!active){
