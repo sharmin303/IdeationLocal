@@ -114,7 +114,7 @@
        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script>
     
-    var socket = io();
+    var socket = io.connect();
     active = false;
     branches = ["voted-words","voted-words2","voted-words3"];
     curSet = 0;
@@ -183,19 +183,23 @@
       var promptaudio = new Audio('sounds/buttonchime.wav');
       promptaudio.play();
     });
+
     function startProgressBar(){
       $(".progress-bar").css("width", "+=10");
     };
+
     $(document).keypress(function(e){
-   if(e.charCode == 48){
-      $('#pModal').modal('show');
-  }
- })
+       if(e.charCode == 48){
+          $('#pModal').modal('show');
+      }
+     });
+
     socket.on('startCountdown', function(target){
     countdown(target);
     });
 
     socket.on('updateUsers', function(users){
+      console.log("update");
       $('#ideators').html('Users: ' + '<span class="badge">' + users + '</span>');
     });
 
