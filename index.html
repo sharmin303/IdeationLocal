@@ -167,6 +167,9 @@
       }
       var promptaudio = new Audio('sounds/Silencer.wav');
       promptaudio.play();
+      $("#panelBodyHeight").animate({
+        scrollTop: $('#panelBodyHeight')[0].scrollHeight - $('#panelBodyHeight')[0].clientHeight
+      }, 500);
     });
     $('#promptForm').submit(function(){
       socket.emit('prompt message', $('#promptValue').val());
@@ -182,10 +185,6 @@
     });
     function startProgressBar(){
       $(".progress-bar").css("width", "+=10");
-       $('.progress .progress-bar').progressbar({
-        done: function() { var promptaudio = new Audio('sounds/Silencer.wav');
-      promptaudio.play(); }
-    });
     };
     $(document).keypress(function(e){
    if(e.charCode == 48){
