@@ -29,7 +29,7 @@
           </div>
 
           <div class = "col-lg-2 col-lg-offset-4 "> 
-            <p id="ideators"> Ideators Active()</p> 
+            <p id="ideators"> </p> 
             <!-- <p id="newPromptinstruction">*Press 0(zero) for new prompt </p> -->
             <button class = "btn btn-warning btn-sm pull-right" id="reset">Reset</button>
           </div>
@@ -111,7 +111,7 @@
 
     </div> <!--End of container-->
 
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+       <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script>
     
     var socket = io();
@@ -120,7 +120,7 @@
     curSet = 0;
     function countdown(toHighLight){
     highlighted = $("#messages > li:contains('" + toHighLight + "')");
-    highlighted.css({ 'color': 'red', 'font-size': '200%' });
+    highlighted.css({ 'color': 'white', 'font-size': '200%' , 'background-color': '#AD2A1A'});
     $("#countdown").css('display', 'inline-block');
     $("#vote").css('display', 'inline-block');
     var audio = new Audio('sounds/Ping.wav');
@@ -139,7 +139,7 @@
     }
     function endVote() {
       clearInterval(timer);
-      highlighted.css({ 'color': 'black', 'font-size': '100%' });
+      highlighted.css({ 'color': 'black', 'font-size': '100%' , 'background-color': '#eee'});
       $("#countdown").html("5");
       $("#countdown").css('display', 'none');
       $("#vote").css('display', 'none');
@@ -152,7 +152,6 @@
       var audio = new Audio('sounds/Ping.wav');
       audio.play();
     }
-
     // Shorthand for on submit execute the below function, adding event handler
     $('#inputForm').submit(function(){
     socket.emit('chat message', $('#submit').val());
@@ -183,13 +182,11 @@
     });
     function startProgressBar(){
       $(".progress-bar").css("width", "+=10");
-
        $('.progress .progress-bar').progressbar({
         done: function() { var promptaudio = new Audio('sounds/Silencer.wav');
       promptaudio.play(); }
     });
     };
-
     $(document).keypress(function(e){
    if(e.charCode == 48){
       $('#pModal').modal('show');
@@ -198,9 +195,12 @@
     socket.on('startCountdown', function(target){
     countdown(target);
     });
+
     socket.on('updateUsers', function(users){
-      $('#usersCount').html('Users: ' + '<span class="badge">' + users + '</span>');
+      $('#ideators').html('Users: ' + '<span class="badge">' + users + '</span>');
     });
+
+
     socket.on('success', function(target){
       $('#wordcloud').html(wordcloud);
       $('#messages').html("");
@@ -214,14 +214,12 @@
       cloudAudio.play();
       console.log(target);
     });
-
     socket.on('reset', function(wordcloud){
       $('#wordcloud').html(wordcloud);
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
     });
-
     // $("#reset").on('click', function (data) {
     //   $('#wordcloud').html("");
     //   $('#messages').html("");
@@ -246,14 +244,6 @@
           $(new_item).addClass('activeVotedCloud');
           $(event.target).addClass('activeVotedCloud');
     });
-
-
-  // $("#voted-words,#voted-words1,#voted-words2").on("click", function() {
-  //     // $(this).toggleClass("activeVotedCol");
-  //     $("#voted-words,#voted-words1,#voted-words2").removeClass('activeVotedCol');
-  //     // $(this).parent().addClass('active');
-  // }); 
-
 
     $(document).ready(function() {
       $('#pModal').modal('hide');
