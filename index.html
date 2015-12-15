@@ -29,7 +29,7 @@
           </div>
 
           <div class = "col-lg-2 col-lg-offset-4 "> 
-            <p id="ideators"> Ideators Active()</p> 
+            <p id="ideators"> </p> 
             <!-- <p id="newPromptinstruction">*Press 0(zero) for new prompt </p> -->
             <button class = "btn btn-warning btn-sm pull-right" id="reset">Reset</button>
           </div>
@@ -195,9 +195,12 @@
     socket.on('startCountdown', function(target){
     countdown(target);
     });
+
     socket.on('updateUsers', function(users){
-      $('#usersCount').html('Users: ' + '<span class="badge">' + users + '</span>');
+      $('#ideators').html('Users: ' + '<span class="badge">' + users + '</span>');
     });
+
+
     socket.on('success', function(target){
       $('#wordcloud').html(wordcloud);
       $('#messages').html("");
