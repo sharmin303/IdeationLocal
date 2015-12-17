@@ -13,7 +13,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-10">
-          <h3 id="title">What team activity should we do after class?</h3></div>
+          <h3 id="title"></h3></div>
           <div class ="col-lg-2" id = "logo" >
             <a href = "#" ><img src = "images/logo.png" alt = "logo" ></a>
           </div>
@@ -80,7 +80,7 @@
       <div class ="row">
         <div class="col-lg-5">
           <form id="inputForm"> <!--Input text area -->
-                <input type="text" class="form-control" id="submit" autocomplete="off" placeholder='Type your idea here'>
+                <input type="text" class="form-control" id="submit" autocomplete="off" placeholder='Type your idea here' maxlength="30">
           </form></div>
           <div class = "col-lg-1">
           <form>
@@ -114,10 +114,13 @@
        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script>
     
-    var socket = io();
+    var socket = io.connect();
     active = false;
     branches = ["voted-words","voted-words2","voted-words3"];
     curSet = 0;
+    curId = 0;
+    cloudPrompts = {};
+
     function countdown(toHighLight){
     highlighted = $("#messages > li:contains('" + toHighLight + "')");
     highlighted.css({ 'color': 'white', 'font-size': '200%' , 'background-color': '#AD2A1A'});
@@ -167,6 +170,9 @@
       }
       var promptaudio = new Audio('sounds/Silencer.wav');
       promptaudio.play();
+      $("#panelBodyHeight").animate({
+        scrollTop: $('#panelBodyHeight')[0].scrollHeight - $('#panelBodyHeight')[0].clientHeight
+      }, 500);
     });
     $('#promptForm').submit(function(){
       socket.emit('prompt message', $('#promptValue').val());
@@ -180,24 +186,24 @@
       var promptaudio = new Audio('sounds/buttonchime.wav');
       promptaudio.play();
     });
+
     function startProgressBar(){
       $(".progress-bar").css("width", "+=10");
-       $('.progress .progress-bar').progressbar({
-        done: function() { var promptaudio = new Audio('sounds/Silencer.wav');
-      promptaudio.play(); }
-    });
     };
+
     $(document).keypress(function(e){
-   if(e.charCode == 48){
-      $('#pModal').modal('show');
-  }
- })
+       if(e.charCode == 48){
+          $('#pModal').modal('show');
+      }
+     });
+
     socket.on('startCountdown', function(target){
     countdown(target);
     });
 
     socket.on('updateUsers', function(users){
-      $('#ideators').html('Users: ' + '<span class="badge">' + users + '</span>');
+      console.log("update");
+      $('#ideators').html('Ideators active: ' + '<span class="badge">' + users + '</span>');
     });
 
 
@@ -206,26 +212,30 @@
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
-      var new_item = $('<li class="cloud" >' + target + '</li>').hide();
+      new_item = $('<li id= "cloudHover" class="cloud" >' + target + '</li>').hide();
+      new_item.attr("data-id", curId);
+      cloudPrompts[curId] =  $('#title').text();
+      curId++;
+
       appendToBranch(new_item);
       new_item.show('slow');
       $('#pModal').modal('show');
       var cloudAudio = new Audio('sounds/Blop.wav');
       cloudAudio.play();
-      console.log(target);
     });
     socket.on('reset', function(wordcloud){
       $('#wordcloud').html(wordcloud);
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
+      $('#voted-words').html("");
+      $('#voted-words2').html("");
+      $('#voted-words3').html("");
+      active = false;
+      curSet = 0;
+      curId = 0;
+      cloudPrompts = {};
     });
-    // $("#reset").on('click', function (data) {
-    //   $('#wordcloud').html("");
-    //   $('#messages').html("");
-    //   clearInterval(progressBarTimer);
-    //   $('.progress-bar').css("width", "0");
-    // });
     
     $("#messages").on("click", "li", function(event){
       if(!active){
@@ -233,11 +243,28 @@
       active = true;
       }
     });
+
+
+
+    $("#voted-words,#voted-words2,#voted-words3").mouseover(function(event) {
+    var cloudElement = $(event.target);
+    $('.cloud').attr('data-toggle', 'tooltip');
+    $('.cloud').attr('title', cloudPrompts[cloudElement.data("id")]);
+    $('.cloud').attr('data-original-title', "");
+    $("[data-toggle=tooltip]").tooltip();
+
+    // This is the prompt just need someone to put it in a popup
+    console.log(cloudPrompts[cloudElement.data("id")]);               
+    }).mouseout(function(){
+    // $('.cloud').tooltip('hide');
+    console.log("hide!");
+    // Here is where you hide the popup
+    });
+
    $("#voted-words,#voted-words2,#voted-words3").on("click", "li", function(event){
           var root_elem = $(event.target).text();
           var new_item = $('<li class="cloud" >' + root_elem + '</li>').hide();
           $('#pModal').modal('show');
-          console.log("lol");
           curSet++;
           appendToBranch(new_item);
           new_item.show('slow');
@@ -246,7 +273,7 @@
     });
 
     $(document).ready(function() {
-      $('#pModal').modal('hide');
+      $('#pModal').modal('show');
       $('#reset').click(function(){
         socket.emit('reset');
       });
