@@ -118,6 +118,9 @@
     active = false;
     branches = ["voted-words","voted-words2","voted-words3"];
     curSet = 0;
+    curId = 0;
+    cloudPrompts = {};
+
     function countdown(toHighLight){
     highlighted = $("#messages > li:contains('" + toHighLight + "')");
     highlighted.css({ 'color': 'white', 'font-size': '200%' , 'background-color': '#AD2A1A'});
@@ -209,13 +212,16 @@
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
-      var new_item = $('<li class="cloud" >' + target + '</li>').hide();
+      new_item = $('<li class="cloud" >' + target + '</li>').hide();
+      new_item.attr("data-id", curId);
+      cloudPrompts[curId] =  $('#title').text();
+      curId++;
+
       appendToBranch(new_item);
       new_item.show('slow');
       $('#pModal').modal('show');
       var cloudAudio = new Audio('sounds/Blop.wav');
       cloudAudio.play();
-      console.log(target);
     });
     socket.on('reset', function(wordcloud){
       $('#wordcloud').html(wordcloud);
@@ -225,6 +231,10 @@
       $('#voted-words').html("");
       $('#voted-words2').html("");
       $('#voted-words3').html("");
+      active = false;
+      curSet = 0;
+      curId = 0;
+      cloudPrompts = {};
     });
     
     $("#messages").on("click", "li", function(event){
@@ -233,11 +243,20 @@
       active = true;
       }
     });
+
+    $("#voted-words,#voted-words2,#voted-words3").mouseover(function(event) {
+    var cloudElement = $(event.target)
+    // This is the prompt just need someone to put it in a popup
+    console.log(cloudPrompts[cloudElement.data("id")]);               
+    }).mouseout(function(){
+    console.log("hide!");
+    // Here is where you hide the popup
+    });
+
    $("#voted-words,#voted-words2,#voted-words3").on("click", "li", function(event){
           var root_elem = $(event.target).text();
           var new_item = $('<li class="cloud" >' + root_elem + '</li>').hide();
           $('#pModal').modal('show');
-          console.log("lol");
           curSet++;
           appendToBranch(new_item);
           new_item.show('slow');
