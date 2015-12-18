@@ -204,6 +204,7 @@
     socket.on('updateUsers', function(users){
       console.log("update");
       $('#ideators').html('Ideators active: ' + '<span class="badge">' + users + '</span>');
+
     });
 
 
@@ -212,7 +213,7 @@
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
-      new_item = $('<li id= "cloudHover" class="cloud" >' + target + '</li>').hide();
+      new_item = $('<li class="cloud" >' + target + '</li>').hide();
       new_item.attr("data-id", curId);
       cloudPrompts[curId] =  $('#title').text();
       curId++;
@@ -244,15 +245,12 @@
       }
     });
 
-
-
     $("#voted-words,#voted-words2,#voted-words3").mouseover(function(event) {
     var cloudElement = $(event.target);
     $('.cloud').attr('data-toggle', 'tooltip');
     $('.cloud').attr('title', cloudPrompts[cloudElement.data("id")]);
     $('.cloud').attr('data-original-title', "");
     $("[data-toggle=tooltip]").tooltip();
-
     // This is the prompt just need someone to put it in a popup
     console.log(cloudPrompts[cloudElement.data("id")]);               
     }).mouseout(function(){
