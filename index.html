@@ -15,7 +15,7 @@
         <div class="col-lg-10">
           <h3 id="title"></h3></div>
           <div class ="col-lg-2" id = "logo" >
-            <a href = "#" ><img src = "images/logo.png" alt = "logo" ></a>
+            <a href = "/" ><img src = "images/logo.png" alt = "logo" ></a>
           </div>
       </div>
 
@@ -203,7 +203,7 @@
 
     socket.on('updateUsers', function(users){
       console.log("update");
-      $('#ideators').html('Users: ' + '<span class="badge">' + users + '</span>');
+      $('#ideators').html('Ideators active: ' + '<span class="badge">' + users + '</span>');
     });
 
 
@@ -212,7 +212,7 @@
       $('#messages').html("");
       clearInterval(progressBarTimer);
       $('.progress-bar').css("width", "0");
-      new_item = $('<li class="cloud" >' + target + '</li>').hide();
+      new_item = $('<li id= "cloudHover" class="cloud" >' + target + '</li>').hide();
       new_item.attr("data-id", curId);
       cloudPrompts[curId] =  $('#title').text();
       curId++;
@@ -245,7 +245,11 @@
     });
 
     $("#voted-words,#voted-words2,#voted-words3").mouseover(function(event) {
-    var cloudElement = $(event.target)
+    var cloudElement = $(event.target);
+    $('.cloud').attr('data-toggle', 'tooltip');
+    $('.cloud').attr('title', cloudPrompts[cloudElement.data("id")]);
+    $('.cloud').attr('data-original-title', "");
+    $("[data-toggle=tooltip]").tooltip();
     // This is the prompt just need someone to put it in a popup
     console.log(cloudPrompts[cloudElement.data("id")]);               
     }).mouseout(function(){
